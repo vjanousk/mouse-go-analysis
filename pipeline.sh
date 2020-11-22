@@ -33,3 +33,19 @@ $WORKINGDIR \
 $DIVERGENCEVCF.gz \
 $CDSDB \
 $DIVERGENCE
+
+# Divergence by GO
+GO2GENES=data/00-source-data/gene_association.mgi.gz
+GOTERMS=data/00-source-data/go_terms.mgi.gz
+DIVERGENCE=data/01-divergence/divergence.bed
+DIVBYGO=divergence_by_go.txt
+WORKINGDIR=data/02-go
+MINNUMGENES=9
+
+bash src/divergence_by_go.sh \
+$GO2GENES \
+$GOTERMS \
+$DIVERGENCE \
+$DIVBYGO \
+$WORKINGDIR \
+$MINNUMGENES
