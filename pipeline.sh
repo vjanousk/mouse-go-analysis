@@ -10,12 +10,10 @@ ANNOTATION=$5
 DIVERGENCEVCF=$6
 CDSDB=$7
 DIVERGENCE=$8
-GO2GENES=$9
-GOTERMS=$10
-GO_DB=$11
-DIVBYGO=$12
+GO_DB=$9
+DIVBYGO=$10
 
-if [ $# !=13 0 ]; then
+if [ $# != 11 ]; then
     echo "Incorect number of command line arguments"
     exit
 fi

@@ -70,8 +70,6 @@ $ANNOTATION \
 $DIV_VCF \
 $CDS_DB \
 $DIV \
-$GO2GENES \
-$GOTERMS \
 $GO_DB \
 $DIV_GO
 ```
