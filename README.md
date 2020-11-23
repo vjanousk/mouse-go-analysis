@@ -74,6 +74,8 @@ $GO_DB \
 $DIV_GO
 ```
 
+![results](results/go-enrichment.jpg)
+
 ## Detailed description of the pipeline
 
 #### 1. Selecting SNPs that are divergent between the two strains
@@ -148,5 +150,3 @@ To plot the results of the GO enrichment analysis `Rscript` is used. Library `gg
 ```bash
 Rscript src/plot.R
 ```
-
-![results](results/go-enrichment.jpg)
