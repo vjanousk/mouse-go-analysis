@@ -15,7 +15,8 @@ p = ggplot(go, aes(x=reorder(NAME,DIV),y=REL_DIV,fill=REL_DIV)) +
   scale_fill_gradient2() +
   ylab("Gene divergence") +
   xlab("GO terms") +
-  labs(fill = "Relative\ndivergence")
+  labs(fill = "Relative\ndivergence") +
+  coord_flip()
   
 
 pdf("results/go-enrichment.pdf",w=10,h=8)
