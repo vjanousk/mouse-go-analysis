@@ -74,6 +74,8 @@ $GO_DB \
 $DIV_GO
 ```
 
+#### Resulting ggplot graph
+
 ![results](results/go-enrichment.jpg)
 
 ## Detailed description of the pipeline
