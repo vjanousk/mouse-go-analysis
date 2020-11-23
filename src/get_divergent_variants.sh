@@ -1,13 +1,12 @@
+#!/bin/bash
+
 # Script to get reduced VCF with divergent variants
 
 QUAL=$1
 DP=$2
-WD=$3 # Working directory (where the output should be stored)
-FILE=$4 # Full path to the source VCF file (mgp.v5.snps.dbSNP142.clean.vcf.gz)
-OUTFILENAME=$5 # Name of the final VCF file
-OUTPUT=$WD/$OUTFILENAME # Path to the final VCF file
-
-SNPLIST=$WD/snplist.tab
+FILE=$3 # Full path to the source VCF file (mgp.v5.snps.dbSNP142.clean.vcf.gz)
+ANNOTATION=$4
+OUTPUT=$5 # Path to the final VCF file
 
 # Prepare annotation file
 bcftools filter \
@@ -22,16 +21,16 @@ tr "/" " " |
 awk '$3==1 && $5==1' |
 cut -f1-2 |
 awk '{ print $0,"\t1" }' \
-> $SNPLIST
+> $ANNOTATION
 
-bgzip $SNPLIST
-tabix -s1 -b2 -e2 $SNPLIST.gz
+bgzip $ANNOTATION
+tabix -s1 -b2 -e2 $ANNOTATION.gz
 
 # Annotate original VCF file with the annotation file and select only divergent sites
-HEADER=$WD/hdr.txt
+HEADER=hdr.txt
 echo -e '##INFO=<ID=DIV,Number=1,Type=Integer,Description="Divergent SNP">' >> $HEADER
 
-bcftools annotate -a $SNPLIST.gz \
+bcftools annotate -a $ANNOTATION.gz \
 -h $HEADER \
 -c CHROM,POS,INFO/DIV \
 $FILE | 
@@ -45,4 +44,9 @@ bgzip $OUTPUT
 LOG=out.log
 if test -f "$LOG"; then
     rm $LOG
+fi
+
+# Delete header file
+if test -f "$HEADER"; then
+    rm $HEADER
 fi

@@ -1,7 +1,8 @@
+#!/bin/bash
+
+# Prepare CDS database (based on MGI genes)
 GENES=$1 # data/00-source-data/MGI.gff3.gz
-WD=$2
-OUTFILE=$3
-OUT=$WD/$OUTFILE
+CDS_DB=$2
 
 TAB=$'\t'
 
@@ -9,4 +10,4 @@ TAB=$'\t'
 awk '$1=="X" && $2=="NCBI" && $3=="CDS"' | 
 sed -E "s/^(.+${TAB}).+gene_id=([^;]+).+$/\1\2/" | 
 awk '{ print $1"\t"$4"\t"$5"\t"$9 }' \
-> $OUT
+> $CDS_DB
