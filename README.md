@@ -4,13 +4,13 @@ This repository represents a bioinformatic pipeline to carry Gene Ontology enric
 
 ## Overview
 
-SNP variants for two mouse strains (PWD/PhJ, WSB/EiJ) were downloaded from the Mouse Genome Project FTP site (ftp://ftp-mouse.sanger.ac.uk/). PWD/PhJ and WSB/EiJ represent Mus musculus musculus and Mus musculus domesticus subspecies, respectively.
+SNP variants for two mouse strains (PWD/PhJ, WSB/EiJ) were downloaded from the Mouse Genome Project FTP site [Mouse Genome Project](ftp://ftp-mouse.sanger.ac.uk/). PWD/PhJ and WSB/EiJ represent Mus musculus musculus and Mus musculus domesticus subspecies, respectively.
 
 The aim is to identify genes with high relative divergence between the two strains and carry Gene Ontology enrichment analysis for genes according to the divergence.
 
 ## Description of the pipeline
 
-1. Selecting SNPs that are divergent between the two strains
+#### 1. Selecting SNPs that are divergent between the two strains
 
 Other criteria used for selection is the PHRED quality and read depth (DP). Divergent SNPs are identified using Fst function built in the `vcftools`. SNPs are considered to be divergent when Fst equals 1.
 
@@ -30,7 +30,7 @@ $SOURCEVCF \
 $DIVERGENCEVCF
 ```
 
-2. Prepare CDS database
+#### 2. Prepare CDS database
 
 `MGI.gff3.gz` represents a full report containing detailed information on genes, mRNAs, exons and CDS. For the divergence analysis only CDS are needed. CDS database is prepared in this step and `gff3` is converted to `bed` to work more easily with the CDS data.
 
@@ -45,7 +45,7 @@ $WORKINGDIR \
 $CDSDB
 ```
 
-3. Calculate the per gene divergence
+#### 3. Calculate the per gene divergence
 
 Once the list of divergent SNPs between the two strains and the CDS database are created, the divergence per gene can be calculated. Combination of `bedtools` tools and `awk` commands is used to find SNPs overlapping CDS parts of the genes and calculate sums and relative divergence by genes.
 
@@ -59,9 +59,9 @@ $CDSDB \
 $DIVERGENCE
 ```
 
-4. Calculate the average relative divergence by Gene Ontology category
+#### 4. Calculate the average relative divergence by Gene Ontology category
 
-Per-gene relative divergences are used to calculate the average relative divergence for individual GO terms. Combinatino of the built-in UNIX `join` and `sort` commands is used along with `groupby` that is part of the `bedtools` tools suite. Dataset representing association between genes and GO terms provided by Mouse Genome Informatics (http://www.informatics.jax.org) and Gene Ontology Consortium (http://geneontology.org) is joined to dataset on with gene relative divergences. The average for every GO term is then calculated omitting low prevalence GO terms.
+Per-gene relative divergences are used to calculate the average relative divergence for individual GO terms. Combinatino of the built-in UNIX `join` and `sort` commands is used along with `groupby` that is part of the `bedtools` tools suite. Dataset representing association between genes and GO terms provided by Mouse Genome Informatics [Mouse Genome Informatics](http://www.informatics.jax.org) and Gene Ontology Consortium [Gene Ontology](http://geneontology.org) is joined to dataset on with gene relative divergences. The average for every GO term is then calculated omitting low prevalence GO terms.
 
 ```bash
 GO2GENES=data/00-source-data/gene_association.mgi.gz
@@ -79,3 +79,13 @@ $DIVBYGO \
 $WORKINGDIR \
 $MINNUMGENES
 ```
+
+#### 5. Prepare a barplot showing results of the GO enrichment analysis
+
+To plot the results of the GO enrichment analysis `Rscript` is used. Library `ggplot2` is the most suitable tool to provide fast and efficient plot.
+
+```bash
+Rscript src/plot.R
+```
+
+![results](results/go-enrichment.jpg)
