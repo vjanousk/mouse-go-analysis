@@ -1,41 +1,47 @@
 # Create directory where to compile software
-SW=.sw
-if test -d "$SW"; then
-    mkdir $SW
-fi
+sw="sw"
 
-cd .sw
+[ ! -d "$sw" ] && mkdir "$sw"
+
+cd sw
+
 
 # Install bedtools if not installed
-COMMAND=bedtools
+command=bedtools
 
-if ! type "$COMMAND" > /dev/null
+if ! type "$command" > /dev/null
 then 
-echo "$COMMAND will be installed"
+echo "$command is being installed"
 wget https://github.com/arq5x/bedtools2/releases/download/v2.29.1/bedtools-2.29.1.tar.gz
 tar -zxvf bedtools-2.29.1.tar.gz
 cd bedtools2
 make
+else
+echo "$command is already installed"
 fi
 
 # Install bcftools if not installed
-COMMAND=bcftools
+command=bcftools
 
-if ! type "$COMMAND" > /dev/null
+if ! type "$command" > /dev/null
 then 
-echo "$COMMAND will be installed"
+echo "$command is being installed"
 git clone git://github.com/samtools/bcftools.git
 cd bcftools
 make
+else
+echo "$command is already installed"
 fi
 
 # Install vcftools if not installe
-COMMAND=vcftools
+command=vcftools
 
-if ! type "$COMMAND" > /dev/null
+if ! type "$command" > /dev/null
 then 
-echo "$COMMAND will be installed"
+echo "$command is being installed"
 git clone https://github.com/vcftools/vcftools.git
 cd vcftools
 make
+else
+echo "$command is already installed"
 fi

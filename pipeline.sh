@@ -38,7 +38,7 @@ echo "10. divbygo): $divbygo"
 
 echo "Get divergent variants..."
 
-bash src/get_divergent_variants.sh \
+src/get_divergent_variants.sh \
 $quality \
 $readdepth \
 $sourcevcf \
@@ -49,7 +49,7 @@ $divergencevcf
 
 echo "Calculate per-gene divergece..."
 
-bash src/calculate_per_gene_divergence.sh \
+src/calculate_per_gene_divergence.sh \
 $divergencevcf.gz \
 $cdsdb \
 $divergence
@@ -58,7 +58,7 @@ $divergence
 
 echo "Calculate divergece by GO..."
 
-bash src/divergence_by_go.sh \
+src/divergence_by_go.sh \
 $divergence \
 $go_db \
 $minnumgenes \
