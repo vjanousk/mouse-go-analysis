@@ -4,7 +4,7 @@ This repository represents a bioinformatic pipeline to carry Gene Ontology enric
 
 ## Overview
 
-SNP variants for two mouse strains (PWD/PhJ, WSB/EiJ) were downloaded from the Mouse Genome Project FTP site [Mouse Genome Project](https://www.sanger.ac.uk/data/mouse-genomes-project/). PWD/PhJ and WSB/EiJ represent Mus musculus musculus and Mus musculus domesticus subspecies, respectively.
+SNP variants for two mouse strains (PWD/PhJ, WSB/EiJ) were downloaded from the Mouse Genome Project FTP site [Mouse Genome Project](https://www.sanger.ac.uk/data/mouse-genomes-project/). PWD/PhJ and WSB/EiJ represent *Mus musculus musculus* and *Mus musculus domesticus* subspecies, respectively.
 
 The aim is to identify genes with high relative divergence between the two strains and carry Gene Ontology enrichment analysis for genes according to the divergence.
 
@@ -19,6 +19,8 @@ bash install.sh
 ```
 
 #### Define variables
+
+Several types of variables defined. Filtering parameters provide thresholds on filtering quality and number of genes used at different stages of the pipeline.
 
 ```bash
 # Filtering parameters

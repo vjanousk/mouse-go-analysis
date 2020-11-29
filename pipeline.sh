@@ -1,71 +1,73 @@
 #!/bin/bash
 
+#set -e
+
 # Main pipeline to prepare GO enrichment analysis
 
-QUALITY=$1
-READDEPTH=$2
-MINNUMGENES=$3
-SOURCEVCF=$4
-ANNOTATION=$5
-DIVERGENCEVCF=$6
-CDSDB=$7
-DIVERGENCE=$8
-GO_DB=$9
-DIVBYGO=$10
+quality=$1
+readdepth=$2
+minnumgenes=$3
+sourcevcf=$4
+annotation=$5
+divergencevcf=$6
+cdsdb=$7
+divergence=$8
+go_db=$9
+divbygo=$10
 
 if [ $# != 11 ]; then
     echo "Incorect number of command line arguments"
     exit
 fi
 
-echo "Positional argument 1 (=QUALITY): $QUALITY"
-echo "Positional argument 2 (=READDEPTH): $READDEPTH"
-echo "Positional argument 3 (=MINNUMGENES): $MINNUMGENES"
-echo "Positional argument 4 (=SOURCEVCF): $SOURCEVCF"
-echo "Positional argument 5 (=ANNOTATION): $ANNOTATION"
-echo "Positional argument 6 (=DIVERGENCEVCF): $DIVERGENCEVCF"
-echo "Positional argument 7 (=CDSDB): $CDSDB"
-echo "Positional argument 8 (=DIVERGENCE): $DIVERGENCE"
-echo "Positional argument 9 (=GO2GENES): $GO2GENES"
-echo "Positional argument 10 (=GOTERMS): $GOTERMS"
-echo "Positional argument 11 (=GO_DB): $GO_DB"
-echo "Positional argument 12 (=DIVBYGO): $DIVBYGO"
+echo "Positional arguments:"
+echo "---------------------"
 
+echo "1.  quality: $quality"
+echo "2.  readdepth: $readdepth"
+echo "3.  minnumgenes: $minnumgenes"
+echo "4.  sourcevcf): $sourcevcf"
+echo "5.  annotation): $annotation"
+echo "6.  divergencevcf): $divergencevcf"
+echo "7.  cdsdb): $cdsdb"
+echo "8.  divergence): $divergence"
+echo "9.  go_db): $go_db"
+echo "10. divbygo): $divbygo"
 
 # Prepare VCF file with divergent variants
 
 echo "Get divergent variants..."
 
 bash src/get_divergent_variants.sh \
-$QUALITY \
-$READDEPTH \
-$SOURCEVCF \
-$ANNOTATION \
-$DIVERGENCEVCF
+$quality \
+$readdepth \
+$sourcevcf \
+$annotation \
+$divergencevcf
 
 # Calculate per gene divergence
 
 echo "Calculate per-gene divergece..."
 
 bash src/calculate_per_gene_divergence.sh \
-$DIVERGENCEVCF.gz \
-$CDSDB \
-$DIVERGENCE
+$divergencevcf.gz \
+$cdsdb \
+$divergence
 
-# Divergence by GO
+# divergence by GO
 
 echo "Calculate divergece by GO..."
 
 bash src/divergence_by_go.sh \
-$DIVERGENCE \
-$GO_DB \
-$MINNUMGENES \
-$DIVBYGO
+$divergence \
+$go_db \
+$minnumgenes \
+$divbygo
 
 # Run the R script
 
 echo "Prepare ggplot bargraph..."
 
-bash src/plot.R
+Rscript src/plot.R
 
 echo "Done."
