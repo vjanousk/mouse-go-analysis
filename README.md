@@ -140,7 +140,7 @@ $divergence
 
 #### 4. Calculate the average relative divergence by Gene Ontology category
 
-Per-gene relative divergences are used to calculate the average relative divergence for individual GO terms. Combinatino of the built-in Unix `join` and `sort` commands is used along with `groupby` that is part of the `bedtools` tools suite. ..... is joined to dataset on with gene relative divergences. The average for every GO term is then calculated omitting low prevalence GO terms.
+Per-gene relative divergences are used to calculate the average relative divergence for individual GO terms. Combinatino of the built-in Unix `join` and `sort` commands is used along with `groupby` that is part of the `bedtools` tools suite. GO dataset is joined to dataset on with gene relative divergences. The average for every GO term is then calculated omitting low prevalence GO terms.
 
 ```bash
 src/divergence_by_go.sh \
