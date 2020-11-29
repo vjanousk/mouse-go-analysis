@@ -1,15 +1,18 @@
-library(data.table)
+library(tidyverse)
 library(ggplot2)
 
 #setwd("~/DocumentsResearch/courses/unix-course/exercises/mouse-go-analysis/")
 
-go = fread("data/02-go/divergence_by_go.txt")
-names(go) = c("GOID","DOMAIN","NAME","DIV","NUMGENES")
+read_tsv('data/02-go/divergence_by_go.txt', col_names=F) -> go
 
-go[,AVG:=mean(DIV)]
-go[,REL_DIV:=DIV-AVG]
+names(go) <- c("GOID","DOMAIN","NAME","DIV","NUMGENES")
 
-p = ggplot(go, aes(x=reorder(NAME,DIV),y=REL_DIV,fill=REL_DIV)) +
+go %>%
+  mutate(AVG = mean(DIV)) %>%
+  mutate(REL_DIV = DIV-AVG) -> 
+  go2
+
+p = ggplot(go2, aes(x=reorder(NAME,DIV),y=REL_DIV,fill=REL_DIV)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 90,vjust = 0.5, hjust=1)) +
   scale_fill_gradient2() +
