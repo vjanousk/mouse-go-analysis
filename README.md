@@ -34,7 +34,7 @@ Several types of variables defined. Filtering parameters provide thresholds on f
 # Filtering parameters
 quality=50
 readdepth=10
-minnumgenes=9
+minnumgenes=30
 
 # Working directories (removed from the git in .gitignore)
 wd_source=data/00-source-data

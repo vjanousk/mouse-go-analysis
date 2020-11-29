@@ -13,7 +13,7 @@ divergencevcf=$6
 cds_db=$7
 divergence=$8
 go_db=$9
-div_go=$10
+div_go=${10}
 
 if [ $# != 10 ]; then
     echo "Incorect number of command line arguments"
