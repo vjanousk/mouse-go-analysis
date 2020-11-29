@@ -15,7 +15,7 @@ divergence=$8
 go_db=$9
 div_go=$10
 
-if [ $# != 11 ]; then
+if [ $# != 10 ]; then
     echo "Incorect number of command line arguments"
     exit
 fi
