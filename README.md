@@ -1,6 +1,6 @@
 # Mouse Gene Ontology enrichment analysis pipeline
 
-This repository represents a bioinformatic pipeline to carry Gene Ontology enrichment analysis for low and high divergence genes among two house mouse subspecies. The pipeline is used as an exercise at the course on UNIX and work with genomic data.
+This repository represents a bioinformatic pipeline to carry Gene Ontology enrichment analysis for low and high divergence genes among two house mouse subspecies. The pipeline is used as an exercise at the course on Unix and work with genomic data.
 
 ## Overview
 
@@ -138,7 +138,7 @@ $divergence
 
 #### 4. Calculate the average relative divergence by Gene Ontology category
 
-Per-gene relative divergences are used to calculate the average relative divergence for individual GO terms. Combinatino of the built-in UNIX `join` and `sort` commands is used along with `groupby` that is part of the `bedtools` tools suite. ..... is joined to dataset on with gene relative divergences. The average for every GO term is then calculated omitting low prevalence GO terms.
+Per-gene relative divergences are used to calculate the average relative divergence for individual GO terms. Combinatino of the built-in Unix `join` and `sort` commands is used along with `groupby` that is part of the `bedtools` tools suite. ..... is joined to dataset on with gene relative divergences. The average for every GO term is then calculated omitting low prevalence GO terms.
 
 ```bash
 src/divergence_by_go.sh \
