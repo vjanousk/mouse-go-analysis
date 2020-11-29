@@ -10,10 +10,10 @@ minnumgenes=$3
 sourcevcf=$4
 annotation=$5
 divergencevcf=$6
-cdsdb=$7
+cds_db=$7
 divergence=$8
 go_db=$9
-divbygo=$10
+div_go=$10
 
 if [ $# != 11 ]; then
     echo "Incorect number of command line arguments"
@@ -29,10 +29,10 @@ echo "3.  minnumgenes: $minnumgenes"
 echo "4.  sourcevcf): $sourcevcf"
 echo "5.  annotation): $annotation"
 echo "6.  divergencevcf): $divergencevcf"
-echo "7.  cdsdb): $cdsdb"
+echo "7.  cdsdb): $cds_db"
 echo "8.  divergence): $divergence"
 echo "9.  go_db): $go_db"
-echo "10. divbygo): $divbygo"
+echo "10. divbygo): $div_go"
 
 # Prepare VCF file with divergent variants
 
@@ -51,7 +51,7 @@ echo "Calculate per-gene divergece..."
 
 src/calculate_per_gene_divergence.sh \
 $divergencevcf.gz \
-$cdsdb \
+$cds_db \
 $divergence
 
 # divergence by GO
@@ -62,7 +62,7 @@ src/divergence_by_go.sh \
 $divergence \
 $go_db \
 $minnumgenes \
-$divbygo
+$div_go
 
 # Run the R script
 

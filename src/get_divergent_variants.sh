@@ -28,7 +28,7 @@ tabix -s1 -b2 -e2 $annotation.gz
 
 # Annotate original VCF file with the annotation file and select only divergent sites
 header=hdr.txt
-echo -e '##INFO=<ID=DIV,Number=1,Type=Integer,Description="Divergent SNP">' >> $HEADER
+echo -e '##INFO=<ID=DIV,Number=1,Type=Integer,Description="Divergent SNP">' >> $header
 
 bcftools annotate -a $annotation.gz \
     -h $header \
@@ -41,7 +41,7 @@ bcftools filter \
 bgzip $output
 
 # Delete the log file produced by vcftools
-LOG=out.log
+log=out.log
 if test -f "$log"; then
     rm $log
 fi

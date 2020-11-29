@@ -15,6 +15,8 @@ The aim is to identify genes with high relative divergence between the two strai
 If `bedtools`, `vcftools` or `bcftools` are not installed, the script below will install these tools.
 
 ```bash
+chmod +x install.sh
+
 ./install.sh
 ```
 
@@ -46,8 +48,8 @@ go2genes=$wd_source/gene_association.mgi.gz
 goterms=$wd_source/go_terms.mgi.gz
 
 # Helping datasets
-cds_db=$WD_SOURCE/mgi-cds.bed
-go_db=$WD_SOURCE/go2genes.txt
+cds_db=$wd_source/mgi-cds.bed
+go_db=$wd_source/go2genes.txt
 
 # Output files
 annotation=$wd_divergence/annotation.tab
@@ -63,7 +65,7 @@ chmod +x src/make_cds_database.sh src/make_go_dataset.sh
 
 chmod +x src/calculate_per_gene_divergence.sh src/divergence_by_go.sh src/get_divergent_variants.sh
 
-chmod +x install.sh pipeline.sh
+chmod +x pipeline.sh
 ```
 
 #### Prepare data
@@ -73,7 +75,7 @@ chmod +x install.sh pipeline.sh
 src/make_cds_database.sh $sourcegenes $cds_db
 
 # Prepare GO database
-src/make_go_dataset.sh $go2genes $goterms $go_db
+src/make_go_database.sh $go2genes $goterms $go_db
 ```
 
 #### Run the pipeline
@@ -89,7 +91,7 @@ $divergencevcf \
 $cds_db \
 $divergence \
 $go_db \
-$divbygo
+$div_go
 ```
 
 #### Resulting ggplot graph
@@ -109,7 +111,7 @@ src/make_cds_database.sh $sourcegenes $cds_db
 `go_terms.mgi.gz` and `gene_association.mgi.gz` represents GO terms and association between genes and GO terms IDs provided by Mouse Genome Informatics [Mouse Genome Informatics](http://www.informatics.jax.org) and Gene Ontology Consortium [Gene Ontology](http://geneontology.org). In the command below joined dataset of list of genes with GO term enrichment is prepared.
 
 ```bash
-src/make_go_dataset.sh $go2genes $goterms $go_db
+src/make_go_database.sh $go2genes $goterms $go_db
 ```
 
 #### 2. Selecting SNPs that are divergent between the two strains
@@ -132,7 +134,7 @@ Once the list of divergent SNPs between the two strains and the CDS database are
 ```bash
 src/calculate_per_gene_divergence.sh \
 $divergencevcf.gz \
-$cdsdb \
+$cds_db \
 $divergence
 ```
 
@@ -145,7 +147,7 @@ src/divergence_by_go.sh \
 $divergence \
 $go_db \
 $minnumgenes \
-$divbygo
+$div_go
 ```
 
 #### 5. Prepare a barplot showing results of the GO enrichment analysis
