@@ -1,5 +1,4 @@
 library(tidyverse)
-library(ggplot2)
 
 #setwd("~/DocumentsResearch/courses/unix-course/exercises/mouse-go-analysis/")
 
