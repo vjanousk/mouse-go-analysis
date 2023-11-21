@@ -1,6 +1,6 @@
 # Mouse Gene Ontology enrichment analysis pipeline
 
-This repository represents a bioinformatic pipeline to carry Gene Ontology enrichment analysis for low and high divergence genes among two house mouse subspecies. The pipeline is used as an exercise at the course on Unix and work with genomic data.
+This repository represents a bioinformatic pipeline to carry out gene-set enrichment analysis for genes having low and high genomic divergence between two house mouse subspecies. The pipeline is used as an exercise at the course on Unix and work with genomic data.
 
 ## Overview
 
