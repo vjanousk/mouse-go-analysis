@@ -19,23 +19,14 @@ tail -n+2 |
 cut -f1-3 |
 tr "/" " " |
 awk '$3==1 && $5==1' |
-cut -f1-2 |
-awk '{ print $0,"\t1" }' \
+cut -f1-2 \
 > $annotation
 
-bgzip $annotation
-tabix -s1 -b2 -e2 $annotation.gz
-
-# Annotate original VCF file with the annotation file and select only divergent sites
-header=hdr.txt
-echo -e '##INFO=<ID=DIV,Number=1,Type=Integer,Description="Divergent SNP">' >> $header
-
-bcftools annotate -a $annotation.gz \
-    -h $header \
-    -c CHROM,POS,INFO/DIV \
-    $file | 
-bcftools filter \
-    -i 'DIV=1' \
+# Retrieve divergent positions
+vcftools --gzvcf $file \
+    --positions $annotation \
+    --recode \
+    --stdout \
     > $output
 
 bgzip $output
@@ -46,7 +37,3 @@ if test -f "$log"; then
     rm $log
 fi
 
-# Delete header file
-if test -f "$header"; then
-    rm $header
-fi

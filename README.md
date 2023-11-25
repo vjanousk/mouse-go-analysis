@@ -61,7 +61,7 @@ div_go=$wd_go/divergence_by_go.txt
 #### Make scripts executable
 
 ```bash
-chmod +x src/make_cds_database.sh src/make_go_dataset.sh
+chmod +x src/make_cds_database.sh src/make_go_database.sh
 
 chmod +x src/calculate_per_gene_divergence.sh src/divergence_by_go.sh src/get_divergent_variants.sh
 
